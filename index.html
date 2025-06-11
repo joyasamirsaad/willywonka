@@ -111,14 +111,133 @@
         <button class="btn centerbtn" onclick="location.href='#delivery'">Order Now</button>
     </section>
     
-    <section id="delivery"></section>
+    <section id="delivery" class="desc" style="margin:3em">
+        <h1 style="text-align: center">Order Details</h1>
+        <div class="delivery">
+            <form id="deliveryForm">
+                <input class="inputform" type="number" name="quantity" placeholder="Quantity" min="1" max="120" required>
+                <input class="inputform" type="text" placeholder="Location" pattern="[A-Za-z\s]+" minlength="2" required>
+                <input class="inputform" type="tel" name="phone" placeholder="Phone Number" required>
+                <fieldset class="deliverysections">
+                    <legend>Select the delivery speed</legend>
+                    <div>
+                        <label class="radio-label">
+                            <input type="radio" name="speed" value="standard" required>
+                            Standard (3-5 days) - Free over $50
+                        </label>
+                        
+                        <label class="radio-label">
+                            <input type="radio" name="speed" value="express" required>
+                            Express (1-2 days) - $8.99
+                        </label>
+                        
+                        <label class="radio-label">
+                            <input type="radio" name="speed" value="sameday" required>
+                            Same Day - $15.99
+                        </label>
+                    </div>
+                </fieldset>
+                
+                <fieldset class="deliverysections">
+                    <legend>Select the payment method</legend>
+                    <div>
+                        <label class="radio-label">
+                            <input type="radio" name="payment" value="cash" required>
+                            Cash On Delivery
+                        </label>
+                        
+                        <label class="radio-label">
+                            <input type="radio" name="payment" value="creditcard" required>
+                            Credit Card
+                            <div class="delivery" style="margin-left: 3em;">
+                            <!--<form id="creditCardForm" class="creditcardinfo">-->
+                                <input type="text" name="cardNumber" form="mainOrderForm" placeholder="Card Number (1234 5678 9012 3456)" maxlength="19" class="inputform" required>
+                                <input class="inputform"  type="text" form="mainOrderForm" name="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                                <input class="inputform" type="text" form="mainOrderForm" name="cvv" placeholder="CVV" maxlength="3" required>
+                            
+                        </div> 
+                        </label>
+                    </div>
+                </fieldset>
+                <button class="btn send" type="submit">Complete Order</button>
+                <div id="deliverysuccessMessage" class="hidden" style="text-align: center;">Order Completed successfully!</div>
+            </form>
+        </div> 
+    </section>
+
+    <section id="contact-us" class="desc" style="margin:3em">
+        <h1 style="text-align: center">Send us a message</h1>
+        <div class="contactus">
+            <form id="contactForm">
+                <input class="inputform" type="text" placeholder="Full Name" pattern="[A-Za-z\s]+" minlength="2" required>
+                <input class="inputform" type="email" placeholder="your.email@example.com" required>
+                <input type="text" placeholder="Subject" class="inputform">
+                <textarea class="inputform formtextarea" placeholder="Tell us what magical chocolate experience you're looking for..." minlength="10" required></textarea>
+                <button class="btn send" type="submit"><i class="fa-regular fa-paper-plane" style="color: #fff8f0;"></i>Send</button>
+                <div id="contactsuccessMessage" class="hidden" style="text-align: center;">Message sent successfully!</div>
+            </form>
+        </div> 
+    </section>
     
     <footer>
-        <div class="social-icons">
-            <a href="#" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+        <div class="footersections desc">
+            <h2><i class="fa-solid fa-location-dot" style="color: #fff8f0;"></i><b>Address</b></h2>
+            <p>Wonka Chocolate Factory<br>1847 Golden Ticket Lane<br>Sweet Valley, CA 90210</p>     
+        </div>
+        <div class="footersections desc">
+            <h2><i class="fa-solid fa-handshake" style="color: #fff8f0;"></i><b>Contact Info</b></h2>
+            <p><i class="fa-solid fa-phone" style="color: #fff8f0;"></i><b>Phone:</b> (555) WONKA-01 | (555) 966-5201
+                <br><br><i class="fa-solid fa-envelope" style="color: #fff8f0;"></i><b>Email:</b> info@wonkachocolate.com
+                <br><br><i class="fa-solid fa-user" style="color: #fff8f0;"></i><b>Customer Service:</b> hello@wonkachocolate.com</p>     
+        </div>
+        <div class="footersections desc">
+            <h2><i class="fa-solid fa-clock" style="color: #fff8f0;"></i><b>Business Hours</b></h2>
+            <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM<br>Sunday: Closed</p>     
+        </div>
+        <div class="footersections desc">
+            <h2><i class="fa-solid fa-info" style="color: #fff8f0;"></i><b>Additional Info</b></h2>
+            <p>Est. 1971<br>Newsletter signup available<br>Free shipping on orders over $50<br>Satisfaction guaranteed or your money back</p>     
+        </div>
+        <div class="footersections desc">
+            <h2><b>Follow us: @WonkaChocolate</b></h2>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>    
+        </div>
+        <div class="desc legal">
+            <p>© 2025 Wonka Chocolate Company. All rights reserved. Privacy Policy | Terms of Service | Cookie Policy</p>     
         </div>
     </footer>
 </body>
 
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        
+        const messageDiv = document.getElementById('contactsuccessMessage');
+        messageDiv.classList.remove('hidden');
+        messageDiv.classList.add('show');
+        
+        setTimeout(() => {
+            this.reset();
+            messageDiv.classList.remove('show');
+            messageDiv.classList.add('hidden');
+        }, 1000);
+    });
+
+    document.getElementById('deliveryForm').addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        
+        const messageDiv = document.getElementById('deliverysuccessMessage');
+        messageDiv.classList.remove('hidden');
+        messageDiv.classList.add('show');
+        
+        setTimeout(() => {
+            this.reset();
+            messageDiv.classList.remove('show');
+            messageDiv.classList.add('hidden');
+        }, 1000);
+    });
+</script>
 </html>
