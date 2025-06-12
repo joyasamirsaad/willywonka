@@ -172,6 +172,7 @@ header {
     grid-template-columns: 3fr 1fr;
     gap: 3em;
     margin:3em auto;
+    padding: 20px;
     align-items: stretch;
 }
 
