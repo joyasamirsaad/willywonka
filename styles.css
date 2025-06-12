@@ -178,29 +178,24 @@ header {
     margin: 4em;
     align-items: stretch;
 }
+@media screen and (max-width: 768px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: none;
+        grid-template-rows: 1fr 1fr;
+    }
+} 
 
 .aboutus {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    overflow-wrap: break-word; 
-    word-wrap: break-word;
 }
 
 .aboutus p {
     margin-top:0.3em;
 }
-
-@media screen and (max-width: 768px) {
-    .grid-container {
-        display: grid;
-        grid-template-columns: none;
-        grid-template-rows: 1fr 1fr;
-        gap: 2em;
-        padding: 1em;
-    }
-} 
 
 .desc {
     background-color: #FFF4E6;
@@ -248,8 +243,6 @@ header {
     background-color: white;
     object-fit: cover;
     max-width: 15em;
-    overflow-wrap: break-word; 
-    word-wrap: break-word;
     transition: transform 0.3s ease-in-out;
 }
 
