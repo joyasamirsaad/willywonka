@@ -171,8 +171,11 @@ header {
     display: grid;
     grid-template-columns: 3fr 1fr;
     gap: 3em;
-    margin:3em auto;
-    padding: 20px;
+    /*margin-left:3em;
+    margin-right:3em;
+    margin-bottom:1em;
+    margin-top:1em;*/
+    margin: 4em;
     align-items: stretch;
 }
 
@@ -189,8 +192,11 @@ header {
 
 @media screen and (max-width: 768px) {
     .grid-container {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: none;
+        grid-template-rows: 1fr 1fr;
+        gap: 2em;
+        padding: 1em;
     }
 } 
 
