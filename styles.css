@@ -184,6 +184,8 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
 }
 
 .aboutus p {
@@ -231,6 +233,7 @@ header {
     justify-items: center;
     gap:3em;
     flex-wrap: wrap;
+    overflow: hidden;
 }
 
 .cards {
@@ -243,6 +246,8 @@ header {
     background-color: white;
     object-fit: cover;
     max-width: 15em;
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
     transition: transform 0.3s ease-in-out;
 }
 
@@ -312,6 +317,7 @@ header {
     justify-content: center;
     gap: 1em;
     flex-wrap: wrap;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 768px) {
@@ -428,6 +434,8 @@ footer {
     color:#FFF8F0;
     max-width: 23em;
     font-size: 1em;
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
 }
 
 footer i {
