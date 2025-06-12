@@ -22,6 +22,12 @@
             </div>
         </div>
         <nav class="navbar">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#about-us">About Us</a></li>
@@ -146,16 +152,22 @@
                             Cash On Delivery
                         </label>
                         
-                        <label class="radio-label">
+                        <label class="radio-label" style="margin-bottom: 0.2em;">
                             <input type="radio" name="payment" value="creditcard" required>
                             Credit Card
-                            <div class="delivery" style="margin-left: 3em;">
-                            <!--<form id="creditCardForm" class="creditcardinfo">-->
-                                <input type="text" name="cardNumber" form="mainOrderForm" placeholder="Card Number (1234 5678 9012 3456)" maxlength="19" class="inputform" required>
-                                <input class="inputform"  type="text" form="mainOrderForm" name="expiryDate" placeholder="MM/YY" maxlength="5" required>
-                                <input class="inputform" type="text" form="mainOrderForm" name="cvv" placeholder="CVV" maxlength="3" required>
                             
-                        </div> 
+                        </label>
+                        <div class="deliverynested">
+                            <!--<form id="creditCardForm" class="creditcardinfo">-->
+                                <input class="inputform credit" type="text" name="cardNumber" form="mainOrderForm" placeholder="Card Number" maxlength="19" required>
+                                <input class="inputform credit"  type="text" form="mainOrderForm" name="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                                <input class="inputform credit" type="text" form="mainOrderForm" name="cvv" placeholder="CVV" maxlength="3" required>
+                            
+                            </div> 
+
+                        <label class="radio-label" style="margin-top: 0.2em;">
+                            <input type="radio" name="payment" value="paypal" required>
+                            PayPal
                         </label>
                     </div>
                 </fieldset>
@@ -239,5 +251,92 @@
             messageDiv.classList.add('hidden');
         }, 1000);
     });
+
+    // Get hamburger and nav menu elements
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.navbar ul');
+
+        // Toggle mobile menu
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Get all payment radio buttons
+        const paymentRadios = document.querySelectorAll('input[name="payment"]');
+        
+        // Get all credit card input fields
+        const creditInputs = document.querySelectorAll('.inputform.credit');
+        
+        // Function to toggle credit card inputs
+        function toggleCreditCardInputs() {
+            const creditCardSelected = document.querySelector('input[name="payment"][value="creditcard"]').checked;
+            
+            creditInputs.forEach(input => {
+                if (creditCardSelected) {
+                    input.disabled = false;
+                    input.required = true;
+                } else {
+                    input.disabled = true;
+                    input.required = false;
+                    input.value = ''; // Clear the input when disabled
+                }
+            });
+        }
+        
+        // Add event listeners to all payment radio buttons
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', toggleCreditCardInputs);
+        });
+        
+        // Initialize the state when page loads
+        toggleCreditCardInputs();
+        
+        // Optional: Add card number formatting
+        const cardNumberInput = document.querySelector('input[name="cardNumber"]');
+        if (cardNumberInput) {
+            cardNumberInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+                let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+                if (formattedValue.length > 19) formattedValue = formattedValue.substr(0, 19);
+                e.target.value = formattedValue;
+            });
+        }
+        
+        // Optional: Add expiry date formatting
+        const expiryInput = document.querySelector('input[name="expiryDate"]');
+        if (expiryInput) {
+            expiryInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length >= 2) {
+                    value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                }
+                e.target.value = value;
+            });
+        }
+        
+        // Optional: Restrict CVV to numbers only
+        const cvvInput = document.querySelector('input[name="cvv"]');
+        if (cvvInput) {
+            cvvInput.addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            });
+        }
 </script>
 </html>
