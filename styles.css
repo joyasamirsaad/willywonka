@@ -238,13 +238,13 @@ header {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    justify-content: space-between;
     box-sizing: border-box;
     word-wrap: break-word;
     background-color: white;
     object-fit: cover;
     max-width: 15em;
-    transform-origin: center center;
-    transition: transform 0.3s ease-in-out;
+    min-height: 42em;
 }
 
 .choco-images {
@@ -261,11 +261,12 @@ header {
     padding:1em;
     margin-bottom:0%;
     border-radius: 8px;
+    transform-origin: center center;
     transition: transform 0.3s ease-in-out;
     object-fit: cover;
 }
 
-.cards:hover {
+.choco-images img:hover {
     transform: scale(1.05); 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -357,19 +358,19 @@ header {
     height: 3em;
     box-sizing: border-box; 
     padding: 1em; 
-    transition: transform 0.3s ease-in-out;
+    /*transition: transform 0.3s ease-in-out;*/
 }
 
-.inputform:hover {
+/*.inputform:hover {
     border: 0.2em solid #830336;
-    /*transform: scale(1.05); */
+    /*transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+}*/
 
 .inputform:focus {
     outline: none;
-    border: 0.2em solid #830336;
-    transform: scale(1.05);
+    border: 0.17em solid #830336;
+    /*transform: scale(1.05);*/
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
