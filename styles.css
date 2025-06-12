@@ -180,9 +180,9 @@ header {
 }
 @media screen and (max-width: 1080px) {
     .grid-container {
-        display: grid;
-        grid-template-columns: none;
-        grid-template-rows: 1fr 1fr;
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
     }
 } 
 
@@ -243,6 +243,7 @@ header {
     background-color: white;
     object-fit: cover;
     max-width: 15em;
+    transform-origin: center center;
     transition: transform 0.3s ease-in-out;
 }
 
@@ -251,6 +252,7 @@ header {
     display: flex;
     justify-content: center;
     gap: 20px; 
+    overflow: hidden;
 }
 
 .choco-images img {
@@ -499,6 +501,7 @@ footer i {
   width: 100%;
   max-width: 1080px;
   margin: 0 auto;
+  padding: 0 20px;
   justify-content: center;
 }
 
@@ -514,7 +517,7 @@ footer i {
 }
 @media (max-width: 768px) {
   .container {
-    max-width: 720px;
+    max-width: 90%;
   }
 }
 
