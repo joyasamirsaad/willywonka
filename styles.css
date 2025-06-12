@@ -128,7 +128,7 @@ header {
     margin: 0 auto;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1080px) {
     .hamburger {
         display: flex;
         order:1;
@@ -233,6 +233,8 @@ header {
     justify-items: center;
     gap:3em;
     flex-wrap: wrap;
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
     overflow: hidden;
 }
 
@@ -316,6 +318,8 @@ header {
     align-items: center;
     justify-content: center;
     gap: 1em;
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
     flex-wrap: wrap;
     overflow: hidden;
 }
