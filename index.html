@@ -167,7 +167,7 @@
                                 <input class="inputform credit"  type="text" form="mainOrderForm" name="expiryDate" placeholder="MM/YY" maxlength="5" required>
                                 <input class="inputform credit" type="text" form="mainOrderForm" name="cvv" placeholder="CVV" maxlength="3" required>
                             
-                            </div> 
+                        </div> 
 
                         <label class="radio-label" style="margin-top: 0.2em;">
                             <input type="radio" name="payment" value="paypal" required>
@@ -186,9 +186,12 @@
         <div class="contactus container">
             <form id="contactForm">
                 <input class="inputform" type="text" placeholder="Full Name" pattern="[A-Za-z\s]+" minlength="2" required>
-                <input class="inputform" type="email" placeholder="your.email@example.com" required>
-                <input type="text" placeholder="Subject" class="inputform">
-                <textarea class="inputform formtextarea" placeholder="Tell us what magical chocolate experience you're looking for..." minlength="10" required></textarea>
+
+                <input class="inputform" type="email" id="email" placeholder="your.email@example.com" required>
+                <span class="error-message" id="email-error"></span>
+
+                <input type="text" placeholder="Subject" class="inputform" required>
+                <textarea class="inputform formtextarea" id="message" placeholder="Tell us what magical chocolate experience you're looking for..." minlength="10" required></textarea>
                 <button class="btn send" type="submit"><i class="fa-regular fa-paper-plane" style="color: #fff8f0;"></i>Send</button>
                 <div id="contactsuccessMessage" class="hidden" style="text-align: center;">Message sent successfully!</div>
             </form>
@@ -256,7 +259,7 @@
         }, 1000);
     });
 
-    // Get hamburger and nav menu elements
+        // Get hamburger and nav menu elements
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.navbar ul');
 
@@ -342,5 +345,142 @@
                 e.target.value = e.target.value.replace(/[^0-9]/g, '');
             });
         }
+
+        // Form validity and alerts
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.querySelector('.btn.send'); 
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+
+        // Get other required inputs
+        const nameInput = document.querySelector('input[placeholder="Full Name"]');
+        const subjectInput = document.querySelector('input[placeholder="Subject"]');
+
+        // Create error message elements for fields that don't have them
+        function createErrorElements() {
+            // Name error
+            const nameError = document.createElement('span');
+            nameError.className = 'error-message';
+            nameError.id = 'name-error';
+            nameInput.parentNode.insertBefore(nameError, nameInput.nextSibling);
+            
+            // Subject error
+            const subjectError = document.createElement('span');
+            subjectError.className = 'error-message';
+            subjectError.id = 'subject-error';
+            subjectInput.parentNode.insertBefore(subjectError, subjectInput.nextSibling);
+            
+            // Message error
+            const messageError = document.createElement('span');
+            messageError.className = 'error-message';
+            messageError.id = 'message-error';
+            messageInput.parentNode.insertBefore(messageError, messageInput.nextSibling);
+        }
+
+        // Create error elements on page load
+        createErrorElements();
+
+        // Validation functions
+        function validateName(name) {
+            const nameRegex = /^[A-Za-z\s]+$/;
+            return name.length >= 2 && nameRegex.test(name);
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validateSubject(subject) {
+            return subject.trim().length > 0;
+        }
+
+        function validateMessage(message) {
+            return message.trim().length >= 10;
+        }
+
+        function showError(inputElement, errorElement, message) {
+            inputElement.classList.add('input-error');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        function clearError(inputElement, errorElement) {
+            inputElement.classList.remove('input-error');
+            errorElement.textContent = '';
+            errorElement.style.display = 'none';
+        }
+
+        function checkFormValidity() {
+            const isNameValid = nameInput.value && validateName(nameInput.value);
+            const isEmailValid = emailInput.value && validateEmail(emailInput.value);
+            const isSubjectValid = subjectInput.value && validateSubject(subjectInput.value);
+            const isMessageValid = messageInput.value && validateMessage(messageInput.value);
+            
+            submitBtn.disabled = !(isNameValid && isEmailValid && isSubjectValid && isMessageValid);
+        }
+
+        // Real-time validation for Name
+        nameInput.addEventListener('blur', function() {
+            const errorElement = document.getElementById('name-error');
+            
+            if (!this.value) {
+                showError(this, errorElement, 'Full name is required');
+            } else if (!validateName(this.value)) {
+                showError(this, errorElement, 'Name should only contain letters and spaces, minimum 2 characters');
+            } else {
+                clearError(this, errorElement);
+            }
+            checkFormValidity();
+        });
+
+        // Real-time validation for Email
+        emailInput.addEventListener('blur', function() {
+            const errorElement = document.getElementById('email-error');
+            
+            if (!this.value) {
+                showError(this, errorElement, 'Email is required');
+            } else if (!validateEmail(this.value)) {
+                showError(this, errorElement, 'Please enter a valid email address');
+            } else {
+                clearError(this, errorElement);
+            }
+            checkFormValidity();
+        });
+
+        // Real-time validation for Subject
+        subjectInput.addEventListener('blur', function() {
+            const errorElement = document.getElementById('subject-error');
+            
+            if (!this.value.trim()) {
+                showError(this, errorElement, 'Subject is required');
+            } else {
+                clearError(this, errorElement);
+            }
+            checkFormValidity();
+        });
+
+        // Real-time validation for Message
+        messageInput.addEventListener('blur', function() {
+            const errorElement = document.getElementById('message-error');
+            
+            if (!this.value.trim()) {
+                showError(this, errorElement, 'Message is required');
+            } else if (!validateMessage(this.value)) {
+                showError(this, errorElement, 'Message must be at least 10 characters long');
+            } else {
+                clearError(this, errorElement);
+            }
+            checkFormValidity();
+        });
+
+        // Also check on input for enabling/disabling submit button
+        nameInput.addEventListener('input', checkFormValidity);
+        emailInput.addEventListener('input', checkFormValidity);
+        subjectInput.addEventListener('input', checkFormValidity);
+        messageInput.addEventListener('input', checkFormValidity);
+
+        // Initial form validity check
+        checkFormValidity();
 </script>
 </html>
